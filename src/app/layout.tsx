@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import logoMintum from "./assets/images/logo-mintum.png";
+import logoMintum from "@/app/assets/images/logo-mintum.png";
 import Link from "next/link";
 import configPath from "./utils/configPath.json";
 import Image from "next/image";
@@ -39,9 +39,16 @@ export default function RootLayout({
               alt={"logoMintum"}
             />
           </Link>
-          <nav>
-            <Link href={configPath.dashboard._}>
+          <nav className="flex flex-row gap-4">
+            <Link
+              className="text-white"
+              href={configPath.dashboard._}>
               Dashboard
+            </Link>
+            <Link
+              className="text-white"
+              href={configPath.dashboard._}>
+              Demos
             </Link>
           </nav>
         </header>
