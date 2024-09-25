@@ -2,7 +2,7 @@ import Link from "next/link";
 import configPath from "@/utils/configPath.json";
 function Header() {
   return (
-    <header className="flex flex-row justify-end items-center bg-black px-4 rounded-lg m-1">
+    <header className="flex flex-row justify-end items-center bg-secondary px-4 rounded-lg m-1">
       <nav className="flex flex-row gap-4">
         <Link
           className="text-white"

@@ -1,0 +1,20 @@
+.item-nav {
+    color: #6c7293;
+    transition-duration: 0.5s;
+
+    svg {
+        fill: #6c7293;
+        stroke: #6c7293;
+        transition-duration: 0.5s;
+    }
+
+    &:hover {
+        color: #eb1616;
+        background: #000;
+
+        svg {
+            fill: #eb1616;
+            stroke: #eb1616;
+        }
+    }
+}
