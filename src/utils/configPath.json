@@ -4,7 +4,9 @@
         "_": "/dashboard"
     },
     "elements": {
-        "_": "/elements"
+        "_": "/elements",
+        "button": "/elements/button",
+        "tabs": "/elements/tabs"
     },
     "widgets": {
         "_": "/widgets",
