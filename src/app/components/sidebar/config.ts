@@ -34,5 +34,15 @@ export const listSidebar: ISidebarItem[] = [
     url: configPath.widgets._,
     icon: WidgetsIcon,
     title: "Widgets",
+    subSidebar: [
+      {
+        url: configPath.widgets.dataEntry,
+        title: "Data Entry",
+      },
+      {
+        url: configPath.widgets.calendar,
+        title: "Calendar",
+      }
+    ]
   },
 ];

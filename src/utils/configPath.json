@@ -10,6 +10,7 @@
     },
     "widgets": {
         "_": "/widgets",
-        "dataEntry": "/widgets/dataEntry"
+        "dataEntry": "/widgets/dataEntry",
+        "calendar": "/widgets/calendar"
     }
 }
