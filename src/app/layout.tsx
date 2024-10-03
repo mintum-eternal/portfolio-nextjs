@@ -34,7 +34,7 @@ export default function RootLayout({
         <div className="flex-1 flex flex-col">
           <Header />
           <div className="overflow-auto flex flex-col flex-1">
-            <div className="flex-1">
+            <div className="flex-1 m-1">
               {children}
             </div>
             <Footer />

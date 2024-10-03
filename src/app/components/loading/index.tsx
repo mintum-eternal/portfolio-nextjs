@@ -1,5 +1,5 @@
 interface ILoadingComponent {
-  className: string;
+  className?: string;
 }
 function LoadingComponent({
   className,

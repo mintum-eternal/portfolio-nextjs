@@ -1,8 +1,8 @@
 function ElementsIcon() {
   return (
     <svg
-      width="40px"
-      height="40px"
+      width="36px"
+      height="36px"
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg"
       fill="#000000">
