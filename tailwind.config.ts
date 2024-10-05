@@ -14,6 +14,10 @@ const config: Config = {
         primary: "#EB1616",
         secondary: "#191C24",
         light: "#6C7293",
+        success: "#198754",
+        danger: '#dc3545',
+        warning:"#ffc107",
+        info: "#0dcaf0",
       },
       keyframes: {
         circle: {
@@ -22,8 +26,8 @@ const config: Config = {
         },
       },
       animation: {
-        circle: 'circle 1s linear infinite'
-      }
+        circle: "circle 1s linear infinite",
+      },
     },
   },
   plugins: [],

@@ -37,6 +37,7 @@ function Sidebar() {
           className="w-48 mx-auto rounded-lg my-1"
           src={logoMintum}
           alt={"logoMintum"}
+          lazyBoundary=""
         />
       </Link>
       <nav className="w-full flex flex-col py-4">

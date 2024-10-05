@@ -1,10 +1,10 @@
 "use client";
-import {
-  useEffect,
-  useMemo,
-  useRef,
-} from "react";
+import { useEffect, useRef } from "react";
 import { IButtonRoot } from "./types";
+import {
+  renderVariantClass,
+  sizeClass,
+} from "./variables";
 
 function Button({
   children,
@@ -13,42 +13,17 @@ function Button({
   size = "sm",
   type,
 }: IButtonRoot) {
-  const sizeClass: Record<typeof size, string> =
-    useMemo(() => {
-      return {
-        xs: "px-1 py-0 h-6 text-xs",
-        sm: "px-2 py-0 h-8 text-sm",
-        md: "px-3 py-0 h-10 text-md",
-        lg: "px-4 py-0 h-12 text-lg",
-      };
-    }, []);
+  const initClass = "rounded font-semibold";
+
   const buttonRef =
     useRef<HTMLButtonElement>(null);
   useEffect(() => {
-    const btnClasses = buttonRef.current;
-    if (btnClasses) {
-      btnClasses.className = btnClasses.className + sizeClass[size];
-      switch (variant) {
-        case "solid":
-          btnClasses.className =
-            btnClasses.className +
-            ` bg-${colorScheme} text-white`;
-          break;
-        case "outline":
-          btnClasses.className =
-            btnClasses.className +
-            ` border border-${colorScheme} bg-transparent text-${colorScheme}`;
-          break;
-        default:
-          break;
-      }
+    if (buttonRef.current) {
+      buttonRef.current.className = `${initClass} ${sizeClass[size]} ${renderVariantClass(colorScheme)[variant]}`;
     }
-  }, [colorScheme, size, sizeClass, variant]);
+  }, [colorScheme, variant, size]);
   return (
-    <button
-      type={type}
-      className="rounded font-semibold "
-      ref={buttonRef}>
+    <button type={type} ref={buttonRef} className="">
       {children}
     </button>
   );

@@ -13,7 +13,7 @@ function GroupButton(props: IGroupButton) {
           props.variant
         )}
       </h3>
-      <div className="grid grid-cols-2 rounded p-4 bg-secondary">
+      <div className="grid grid-cols-2 gap-4 rounded p-4 bg-secondary">
         {colors.map((color) => (
           <div
             key={color}
