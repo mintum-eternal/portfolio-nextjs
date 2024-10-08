@@ -1,3 +1,4 @@
+'use client'
 import Button from "@/app/components/button";
 import { IVariantButton } from "@/app/components/button/types";
 import { colors, sizes } from "../../variables";
@@ -13,12 +14,12 @@ function GroupButton(props: IGroupButton) {
           props.variant
         )}
       </h3>
-      <div className="grid grid-cols-2 gap-4 rounded p-4 bg-secondary">
-        {colors.map((color) => (
+      <div className="flex flex-col gap-6 rounded p-4 bg-secondary">
+        {sizes.map((size) => (
           <div
-            key={color}
-            className="flex flex-row gap-2 items-center">
-            {sizes.map((size) => (
+            key={size}
+            className="flex flex-row flex-wrap gap-2 items-center">
+            {colors.map((color) => (
               <Button
                 key={size + color}
                 size={size}

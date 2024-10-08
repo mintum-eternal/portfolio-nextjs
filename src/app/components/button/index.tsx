@@ -1,5 +1,3 @@
-"use client";
-import { useEffect, useRef } from "react";
 import { IButtonRoot } from "./types";
 import {
   renderVariantClass,
@@ -12,21 +10,23 @@ function Button({
   variant = "solid",
   size = "sm",
   type,
+  ...other
 }: IButtonRoot) {
   const initClass = "rounded font-semibold";
 
-  const buttonRef =
-    useRef<HTMLButtonElement>(null);
-  useEffect(() => {
-    if (buttonRef.current) {
-      buttonRef.current.className = `${initClass} ${sizeClass[size]} ${renderVariantClass(colorScheme)[variant]}`;
-    }
-  }, [colorScheme, variant, size]);
   return (
     <button
+      {...other}
       type={type}
-      className="rounded font-semibold hover:brightness-75"
-      ref={buttonRef}>
+      className={`${
+        other.className
+          ? other.className + " "
+          : ""
+      }rounded duration-500 font-semibold ${initClass} ${
+        sizeClass[size]
+      } ${
+        renderVariantClass(colorScheme)[variant]
+      }`}>
       {children}
     </button>
   );

@@ -18,6 +18,7 @@ const config: Config = {
         danger: '#dc3545',
         warning:"#ffc107",
         info: "#0dcaf0",
+        disaled: "#EBEBE4"
       },
       keyframes: {
         circle: {

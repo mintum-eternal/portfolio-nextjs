@@ -2,14 +2,12 @@ import { ButtonHTMLAttributes } from "react";
 
 export type IColorButton =
   | "primary"
-  | "secondary"
   | "success"
   | "danger"
   | "warning"
   | "info"
   | "light"
   | "dark"
-  | "link";
 export type IVariantButton =
   | "solid"
   | "outline"

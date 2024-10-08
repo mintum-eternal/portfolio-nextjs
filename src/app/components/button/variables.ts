@@ -13,22 +13,56 @@ export const sizeClass: Record<
   lg: "px-4 py-0 h-12 text-lg",
 };
 
-const colorVariantSolid: Record<IColorButton, string> = {
-    primary: "bg-primary text-white",
-    secondary: "bg-secondary text-white",
-    success: "bg-success text-white",
-    danger: "bg-danger text-white",
-    warning: "bg-warning text-black",
-    info: "bg-info text-black",
-    light: "bg-light text-white",
-    dark: "bg-black text-white",
-    link: "text-primary hover:underline"
+const colorVariantSolid: Record<
+  IColorButton,
+  string
+> = {
+  primary: "bg-primary text-white",
+  success: "bg-success text-white",
+  danger: "bg-danger text-white",
+  warning: "bg-warning text-black",
+  info: "bg-info text-black",
+  light: "bg-light text-white",
+  dark: "bg-black text-white",
+};
+const colorVariantOutline: Record<
+  IColorButton,
+  string
+> = {
+  primary: "border-primary text-primary",
+  success: "border-success text-success",
+  danger: "border-danger text-danger",
+  warning: "border-warning text-warning",
+  info: "border-info text-info",
+  light: "border-light text-light",
+  dark: "border-black text-black",
+};
+const colorVariantLink: Record<
+  IColorButton,
+  string
+> = {
+  primary: "text-primary",
+  success: "text-success",
+  danger: "text-danger",
+  warning: "text-warning",
+  info: "text-info",
+  light: "text-light",
+  dark: "text-black",
+};
+const colorVariantGhost: Record<IColorButton, string> = {
+  primary: "text-primary hover:bg-primary/10",
+  success: "text-success hover:bg-success/10",
+  danger: "text-danger hover:bg-danger/10",
+  warning: "text-warning hover:bg-warning/10",
+  info: "text-info hover:bg-info/10",
+  light: "text-light hover:bg-light/10",
+  dark: "text-black hover:bg-black/10",
 }
 export const renderVariantClass = (
   colorScheme: IColorButton
 ) => ({
-  solid: `${colorVariantSolid[colorScheme]} duration-500 hover:brightness-75`,
-  outline: `border border-${colorScheme} bg-transparent text-${colorScheme}`,
-  link: "",
-  ghost: "",
+  solid: `${colorVariantSolid[colorScheme]} hover:brightness-75`,
+  outline: `border ${colorVariantOutline[colorScheme]} bg-transparent text-${colorScheme}`,
+  link: `${colorVariantLink[colorScheme]} hover:underline`,
+  ghost: `bg-transparent ${colorVariantGhost[colorScheme]}`,
 });

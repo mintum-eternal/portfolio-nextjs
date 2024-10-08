@@ -6,14 +6,12 @@ import {
 
 export const colors: IColorButton[] = [
   "primary",
-  "secondary",
   "success",
   "danger",
   "warning",
   "info",
   "light",
   "dark",
-  "link",
 ];
 export const sizes: ISizeButton[] = [
   "xs",
