@@ -23,7 +23,10 @@ function Button({
     }
   }, [colorScheme, variant, size]);
   return (
-    <button type={type} ref={buttonRef} className="">
+    <button
+      type={type}
+      className="rounded font-semibold hover:brightness-75"
+      ref={buttonRef}>
       {children}
     </button>
   );
