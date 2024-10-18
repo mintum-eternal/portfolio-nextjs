@@ -4,6 +4,7 @@ import "./globals.css";
 import Sidebar from "./components/sidebar";
 import Header from "./components/header";
 import Footer from "./components/footer";
+import ComponentProvider from "./components";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,16 +31,18 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen flex flex-row`}>
-        <Sidebar />
-        <div className="flex-1 flex flex-col">
-          <Header />
-          <div className="overflow-auto flex flex-col flex-1">
-            <div className="flex-1 m-1">
-              {children}
+        <ComponentProvider>
+          <Sidebar />
+          <div className="flex-1 flex flex-col">
+            <Header />
+            <div className="overflow-auto flex flex-col flex-1">
+              <div className="flex-1 m-1">
+                {children}
+              </div>
+              <Footer />
             </div>
-            <Footer />
           </div>
-        </div>
+        </ComponentProvider>
       </body>
     </html>
   );

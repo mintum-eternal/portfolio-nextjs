@@ -29,13 +29,13 @@ const colorVariantOutline: Record<
   IColorButton,
   string
 > = {
-  primary: "border-primary text-primary",
-  success: "border-success text-success",
-  danger: "border-danger text-danger",
-  warning: "border-warning text-warning",
-  info: "border-info text-info",
-  light: "border-light text-light",
-  dark: "border-black text-black",
+  primary: "border-primary text-primary hover:bg-primary/10",
+  success: "border-success text-success hover:bg-success/10",
+  danger: "border-danger text-danger hover:bg-danger/10",
+  warning: "border-warning text-warning hover:bg-warning/10",
+  info: "border-info text-info hover:bg-info/10",
+  light: "border-light text-light hover:bg-light/10",
+  dark: "border-black text-black hover:bg-black/10",
 };
 const colorVariantLink: Record<
   IColorButton,

@@ -1,4 +1,3 @@
-'use client'
 import Button from "@/app/components/button";
 import { IVariantButton } from "@/app/components/button/types";
 import { colors, sizes } from "../../variables";
