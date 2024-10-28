@@ -1,20 +1,36 @@
-import { ReactNode, useMemo } from "react";
-import { useTabList } from "../..";
+import {
+  ReactNode,
+  useMemo,
+} from "react";
+import { useTabs } from "../..";
 import { Helper } from "@/utils/Helpers";
 
 export interface ITab {
   children: ReactNode;
 }
 function Tab({ children }: ITab) {
+  const valueTab = useTabs()
   const idTab = useMemo(() => {
     return Helper.makeid(5);
   }, []);
-  const { currentTab } = useTabList(idTab);
+  if (!valueTab?.tabList?.includes(idTab)) {
+    valueTab?.setStateTabs(s => ({ ...s, tabList: [...(valueTab?.tabList ?? []), idTab]}))
+  }
+  const onChangeTab = () => {
+    if(valueTab?.setStateTabs){
+      valueTab.setStateTabs(s => ({ ...s, currentTab: idTab}))
+    }
+  } 
   return (
     <div
-      tabIndex={idTab === currentTab ? 1 : 0}
-      role="tab"
-      onClick={() => {}}>
+      id={idTab}
+      onClick={onChangeTab}
+      className={
+        idTab === valueTab?.currentTab
+          ? "bg-primary"
+          : "bg-secondary"
+      }
+      role="tab">
       {children}
     </div>
   );
