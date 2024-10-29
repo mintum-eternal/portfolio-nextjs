@@ -1,36 +1,39 @@
 import {
-  ReactNode,
-  useMemo,
+  useEffect,
+  useState,
 } from "react";
-import { useTabs } from "../..";
+import { DispatchTabs, useTabs } from "../..";
 import { Helper } from "@/utils/Helpers";
 
 export interface ITab {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 function Tab({ children }: ITab) {
-  const valueTab = useTabs()
-  const idTab = useMemo(() => {
-    return Helper.makeid(5);
-  }, []);
-  if (!valueTab?.tabList?.includes(idTab)) {
-    valueTab?.setStateTabs(s => ({ ...s, tabList: [...(valueTab?.tabList ?? []), idTab]}))
-  }
-  const onChangeTab = () => {
-    if(valueTab?.setStateTabs){
-      valueTab.setStateTabs(s => ({ ...s, currentTab: idTab}))
+  const valueTab = useTabs();
+  const [id, setId] = useState<string>();
+
+  useEffect(() => {
+    if (!id) {
+      const newId = Helper.makeid(5);
+      setId(newId);
+      valueTab?.dispatch({type: DispatchTabs.addTab, idTab: newId})
     }
-  } 
+  }, [id, valueTab]);
+  const onChangeTab = () => {
+    valueTab?.dispatch({
+      idTab: id,
+      type: DispatchTabs.selectTab,
+    });
+  };
   return (
     <div
-      id={idTab}
+      id={id}
       onClick={onChangeTab}
       className={
-        idTab === valueTab?.currentTab
+        id === valueTab?.state.currentTab
           ? "bg-primary"
           : "bg-secondary"
-      }
-      role="tab">
+      }>
       {children}
     </div>
   );

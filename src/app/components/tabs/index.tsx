@@ -3,23 +3,26 @@ import React, {
   createContext,
   ReactElement,
   useContext,
-  useEffect,
-  useMemo,
-  useState,
+  useReducer,
 } from "react";
 import TabListComponent from "./components/TabList";
 import TabComponent from "./components/Tab";
+import TabPannelsComponent from "./components/TabPannels";
+import TabPannelComponent from "./components/TabPannel";
+
 export const TabList = TabListComponent;
-export const Tab = TabComponent
+export const Tab = TabComponent;
+export const TabPannels = TabPannelsComponent
+export const TabPannel = TabPannelComponent
 export type ITabs = {
-  children: ReactElement[]
-}
+  children: ReactElement[];
+};
 export interface ITabsContext {
-  tabList?: string[];
-  currentTab?: string;
-  setStateTabs: React.Dispatch<
-    React.SetStateAction<ITabsState | undefined>
-  >;
+  state: ITabsState;
+  dispatch: React.Dispatch<{
+    type: DispatchTabs;
+    idTab?: string;
+  }>;
 }
 export interface ITabsState {
   tabList: string[];
@@ -28,26 +31,53 @@ export interface ITabsState {
 const TabsContext = createContext<
   ITabsContext | undefined
 >(undefined);
+export enum DispatchTabs {
+  reset,
+  addTab,
+  selectTab,
+}
 export const useTabs = () =>
   useContext(TabsContext);
+const onDispatchTabs = (
+  state: ITabsState,
+  action: { type: DispatchTabs; idTab?: string }
+): ITabsState => {
+
+  switch (action.type) {
+    case DispatchTabs.reset:
+      return {
+        tabList: [],
+        currentTab: undefined,
+      };
+    case DispatchTabs.addTab:
+      return {
+        tabList: action.idTab ? [...state.tabList, action.idTab] : [],
+        currentTab: state.tabList[0],
+      };
+    case DispatchTabs.selectTab:
+      return {
+        currentTab:
+          action.idTab ?? state.currentTab,
+        tabList: state.tabList,
+      };
+    default:
+      throw new Error(
+        `unknow type ${action.type}`
+      );
+  }
+};
 
 function Tabs({ children }: ITabs) {
-  const [stateTabs, setStateTabs] =
-    useState<ITabsState>();
-  useEffect(()=>{
-    if(stateTabs?.tabList && !stateTabs.currentTab){
-      setStateTabs(s=>({...s , currentTab: stateTabs.tabList[0]}))
+  const [state, dispatch] = useReducer(
+    onDispatchTabs,
+    {
+      tabList: [],
     }
-  },[stateTabs?.currentTab, stateTabs?.tabList])
-  const value = useMemo(() => {
-    return {
-      ...stateTabs,
-      setStateTabs,
-    };
-  }, [stateTabs]);
-  console.log('check value', value);
+  );
+  console.log("check state", state);
   return (
-    <TabsContext.Provider value={value}>
+    <TabsContext.Provider
+      value={{ state, dispatch }}>
       <div className="flex flex-col">
         {children}
       </div>

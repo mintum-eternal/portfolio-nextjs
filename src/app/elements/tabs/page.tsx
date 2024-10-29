@@ -1,4 +1,9 @@
-import Tabs, { Tab, TabList } from "@/app/components/tabs";
+import Tabs, {
+  Tab,
+  TabList,
+  TabPannel,
+  TabPannels,
+} from "@/app/components/tabs";
 
 function RootTabs() {
   return (
@@ -7,7 +12,14 @@ function RootTabs() {
         <Tab>One</Tab>
         <Tab>Two</Tab>
       </TabList>
-      <div>123</div>
+      <TabPannels>
+        <TabPannel>
+          <span>1</span>
+        </TabPannel>
+        <TabPannel>
+          <span>2</span>
+        </TabPannel>
+      </TabPannels>
     </Tabs>
   );
 }
