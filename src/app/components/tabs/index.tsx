@@ -7,12 +7,10 @@ import React, {
 } from "react";
 import TabListComponent from "./components/TabList";
 import TabComponent from "./components/Tab";
-import TabPannelsComponent from "./components/TabPannels";
 import TabPannelComponent from "./components/TabPannel";
 
 export const TabList = TabListComponent;
 export const Tab = TabComponent;
-export const TabPannels = TabPannelsComponent
 export const TabPannel = TabPannelComponent
 export type ITabs = {
   children: ReactElement[];

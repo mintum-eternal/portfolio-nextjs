@@ -2,24 +2,36 @@ import Tabs, {
   Tab,
   TabList,
   TabPannel,
-  TabPannels,
 } from "@/app/components/tabs";
-
+const dataDemo = [
+  {
+    id: "0",
+    tab: "One",
+    panel: "1",
+  },
+  {
+    id: "1",
+    tab: "Two",
+    panel: "2",
+  },
+];
 function RootTabs() {
   return (
     <Tabs>
       <TabList>
-        <Tab>One</Tab>
-        <Tab>Two</Tab>
+        {dataDemo.map((data) => (
+          <Tab value={data.id} key={data.id}>{data.tab}</Tab>
+        ))}
       </TabList>
-      <TabPannels>
-        <TabPannel>
-          <span>1</span>
-        </TabPannel>
-        <TabPannel>
-          <span>2</span>
-        </TabPannel>
-      </TabPannels>
+      <>
+        {dataDemo.map((data) => (
+          <TabPannel
+            value={data.id}
+            key={data.id}>
+            <span>{data.panel}</span>
+          </TabPannel>
+        ))}
+      </>
     </Tabs>
   );
 }

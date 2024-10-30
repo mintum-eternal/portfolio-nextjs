@@ -1,24 +1,24 @@
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 import { DispatchTabs, useTabs } from "../..";
-import { Helper } from "@/utils/Helpers";
 
 export interface ITab {
   children: React.ReactNode;
+  value: string;
 }
-function Tab({ children }: ITab) {
+function Tab({ children, value }: ITab) {
   const valueTab = useTabs();
   const [id, setId] = useState<string>();
 
   useEffect(() => {
     if (!id) {
-      const newId = Helper.makeid(5);
+      const newId = value;
       setId(newId);
-      valueTab?.dispatch({type: DispatchTabs.addTab, idTab: newId})
+      valueTab?.dispatch({
+        type: DispatchTabs.addTab,
+        idTab: newId,
+      });
     }
-  }, [id, valueTab]);
+  }, [id, value, valueTab]);
   const onChangeTab = () => {
     valueTab?.dispatch({
       idTab: id,
@@ -29,11 +29,13 @@ function Tab({ children }: ITab) {
     <div
       id={id}
       onClick={onChangeTab}
-      className={
-        id === valueTab?.state.currentTab
-          ? "bg-primary"
-          : "bg-secondary"
-      }>
+      className={`cursor-pointer 
+        ${
+          id === valueTab?.state.currentTab
+            ? "bg-primary"
+            : "bg-secondary"
+        }
+      `}>
       {children}
     </div>
   );
