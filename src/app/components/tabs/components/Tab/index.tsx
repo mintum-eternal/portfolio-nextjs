@@ -1,41 +1,33 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { DispatchTabs, useTabs } from "../..";
+import { ITab } from "../../types";
 
-export interface ITab {
-  children: React.ReactNode;
-  value: string;
-}
-function Tab({ children, value }: ITab) {
+function Tab({ children, tabId }: ITab) {
   const valueTab = useTabs();
-  const [id, setId] = useState<string>();
-
-  useEffect(() => {
-    if (!id) {
-      const newId = value;
-      setId(newId);
-      valueTab?.dispatch({
-        type: DispatchTabs.addTab,
-        idTab: newId,
-      });
-    }
-  }, [id, value, valueTab]);
-  const onChangeTab = () => {
-    valueTab?.dispatch({
-      idTab: id,
+  if (!valueTab) {
+    throw new Error(`undefined context useTabs`);
+  }
+  const { currentTab } = valueTab.state;
+  const onChangeTab = useCallback(() => {
+    valueTab.dispatch({
+      tabId,
       type: DispatchTabs.selectTab,
     });
-  };
+  }, [tabId, valueTab]);
+  useEffect(() => {
+    if (!currentTab) {
+      valueTab.dispatch({
+        tabId,
+        type: DispatchTabs.defaultFirstTab,
+      });
+    }
+  }, [currentTab, onChangeTab, tabId, valueTab]);
+
   return (
     <div
-      id={id}
+      id={tabId}
       onClick={onChangeTab}
-      className={`cursor-pointer 
-        ${
-          id === valueTab?.state.currentTab
-            ? "bg-primary"
-            : "bg-secondary"
-        }
-      `}>
+      className="cursor-pointer">
       {children}
     </div>
   );

@@ -12,7 +12,7 @@ function Button({
   type,
   ...other
 }: IButtonRoot) {
-  const initClass = "rounded font-semibold";
+  const initClass = "rounded duration-500 font-semibold";
 
   return (
     <button
@@ -22,7 +22,7 @@ function Button({
         other.className
           ? other.className + " "
           : ""
-      }rounded duration-500 font-semibold ${initClass} ${
+      }${initClass} ${
         sizeClass[size]
       } ${
         renderVariantClass(colorScheme)[variant]

@@ -14,19 +14,24 @@ const dataDemo = [
     tab: "Two",
     panel: "2",
   },
+  {
+    id: "2",
+    tab: "Three",
+    panel: "3",
+  },
 ];
 function RootTabs() {
   return (
     <Tabs>
       <TabList>
         {dataDemo.map((data) => (
-          <Tab value={data.id} key={data.id}>{data.tab}</Tab>
+          <Tab tabId={data.id} key={data.id}>{data.tab}</Tab>
         ))}
       </TabList>
       <>
         {dataDemo.map((data) => (
           <TabPannel
-            value={data.id}
+            tabId={data.id}
             key={data.id}>
             <span>{data.panel}</span>
           </TabPannel>

@@ -1,78 +1,79 @@
 "use client";
 import React, {
   createContext,
-  ReactElement,
   useContext,
+  useEffect,
   useReducer,
 } from "react";
 import TabListComponent from "./components/TabList";
 import TabComponent from "./components/Tab";
 import TabPannelComponent from "./components/TabPannel";
+import { IActionDispatchTab, ITabs, ITabsState } from "./types";
 
 export const TabList = TabListComponent;
 export const Tab = TabComponent;
-export const TabPannel = TabPannelComponent
-export type ITabs = {
-  children: ReactElement[];
-};
+export const TabPannel = TabPannelComponent;
+
+
 export interface ITabsContext {
   state: ITabsState;
-  dispatch: React.Dispatch<{
-    type: DispatchTabs;
-    idTab?: string;
-  }>;
+  dispatch: React.Dispatch<IActionDispatchTab>;
 }
-export interface ITabsState {
-  tabList: string[];
-  currentTab?: string;
-}
+
 const TabsContext = createContext<
   ITabsContext | undefined
 >(undefined);
 export enum DispatchTabs {
-  reset,
-  addTab,
+  defaultFirstTab,
   selectTab,
 }
 export const useTabs = () =>
   useContext(TabsContext);
 const onDispatchTabs = (
   state: ITabsState,
-  action: { type: DispatchTabs; idTab?: string }
+  action: IActionDispatchTab
 ): ITabsState => {
-
+  let newState;
   switch (action.type) {
-    case DispatchTabs.reset:
-      return {
-        tabList: [],
-        currentTab: undefined,
-      };
-    case DispatchTabs.addTab:
-      return {
-        tabList: action.idTab ? [...state.tabList, action.idTab] : [],
-        currentTab: state.tabList[0],
-      };
-    case DispatchTabs.selectTab:
-      return {
+    case DispatchTabs.defaultFirstTab:
+      newState = {
         currentTab:
-          action.idTab ?? state.currentTab,
-        tabList: state.tabList,
+          state.currentTab ?? action.tabId,
       };
+      break;
+    case DispatchTabs.selectTab:
+      newState = {
+        currentTab:
+          action.tabId ?? state.currentTab,
+      };
+      break;
     default:
       throw new Error(
         `unknow type ${action.type}`
       );
   }
+  return { ...state, ...newState };
 };
 
-function Tabs({ children }: ITabs) {
+function Tabs({
+  children,
+  variant = "line",
+  defaultTabId
+}: ITabs) {
   const [state, dispatch] = useReducer(
     onDispatchTabs,
     {
-      tabList: [],
+      variant,
     }
   );
-  console.log("check state", state);
+  useEffect(()=>{
+    if(defaultTabId){
+      dispatch({
+        type: DispatchTabs.selectTab,
+        tabId: defaultTabId
+      })
+    }
+  },[defaultTabId])
   return (
     <TabsContext.Provider
       value={{ state, dispatch }}>

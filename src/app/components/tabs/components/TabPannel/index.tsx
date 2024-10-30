@@ -2,16 +2,20 @@ import { useTabs } from "../..";
 
 function TabPannel({
   children,
-  value,
+  tabId,
 }: {
   children: React.ReactElement;
-  value: string;
+  tabId: string;
 }) {
   const valueTab = useTabs();
+  if (!valueTab) {
+    throw new Error(`undefined context useTabs`);
+  }
+  const { currentTab } = valueTab.state;
   return (
     <>
-      {valueTab?.state.currentTab === value && (
-        <div id={`panel-${value}`}>
+      {currentTab === tabId && (
+        <div id={`panel-${tabId}`}>
           {children}
         </div>
       )}
