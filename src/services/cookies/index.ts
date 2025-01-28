@@ -1,4 +1,5 @@
 import { Helper } from "@/utils/Helpers";
+import { useState } from "react";
 
 interface ICookieOptions {
   path?: string;
@@ -10,7 +11,29 @@ interface ICookieOptions {
   sameSite?: boolean | "none" | "lax" | "strict";
   partitioned?: boolean;
 }
-function useCookies() {
+const useCookies = () => {
+  const getCookies = () => {
+    const newCookies: Record<string, unknown> =
+      {};
+    try {
+      document?.cookie
+        .split("; ")
+        .forEach((cookie) => {
+          const newObject = cookie.split("=");
+          newCookies[newObject[0]] =
+            Helper.jsonParse(
+              decodeURIComponent(newObject[1])
+            );
+        });
+
+      return newCookies;
+    } catch {
+      return newCookies;
+    }
+  };
+  const [cookies, setCookies] = useState<
+    Record<string, unknown>
+  >(getCookies());
   const setCookie = (
     name: string,
     value: string | object,
@@ -20,42 +43,25 @@ function useCookies() {
       string,
       unknown
     > = {
-      [name]:
+      [name]: encodeURIComponent(
         typeof value === "string"
           ? value
-          : JSON.stringify(value),
+          : JSON.stringify(value)
+      ),
       ...options,
     };
+
     const newCookiesString = Object.keys(
       newCookiesObject
     )
-      .map((key) =>
-        key === name &&
-        String(newCookiesObject[key]).length === 0
-          ? `${key}=`
-          : `${key}=${String(
-              newCookiesObject[key]
-            )}`
+      .map(
+        (key) => `${key}=${newCookiesObject[key]}`
       )
       .join(";");
     document.cookie = newCookiesString;
+    setCookies(getCookies());
   };
-  const getCookies = () => {
-    const cookies: Record<string, unknown> = {};
-    try {
-      document?.cookie
-        .split("; ")
-        .forEach((cookie) => {
-          const newObject = cookie.split("=");
-          cookies[newObject[0]] =
-            Helper.jsonParse(newObject[1]);
-        });
 
-      return cookies;
-    } catch {
-      return cookies;
-    }
-  };
   const removeCookies = (
     name: string,
     options?: ICookieOptions
@@ -66,9 +72,9 @@ function useCookies() {
     });
   };
   return {
-    cookies: getCookies(),
+    cookies,
     setCookie,
     removeCookies,
   };
-}
+};
 export default useCookies;
