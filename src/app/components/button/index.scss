@@ -1,0 +1,139 @@
+.button {
+    @apply rounded duration-500 font-semibold;
+
+    &-xs {
+        @apply px-1 py-0 h-6 text-xs;
+    }
+
+    &-sm {
+        @apply px-2 py-0 h-8 text-sm;
+    }
+
+    &-md {
+        @apply px-3 py-0 h-10 text-base;
+    }
+
+    &-lg {
+        @apply px-4 py-0 h-12 text-lg;
+    }
+
+    &-solid {
+        &-primary {
+            @apply bg-primary/85 text-white hover:bg-primary;
+        }
+
+        &-success {
+            @apply bg-success/85 text-white hover:bg-success;
+        }
+
+        &-danger {
+            @apply bg-danger/85 text-white hover:bg-danger;
+        }
+
+        &-warning {
+            @apply bg-warning/85 text-black hover:bg-warning;
+        }
+
+        &-info {
+            @apply bg-info/85 text-black hover:bg-info;
+        }
+
+        &-light {
+            @apply bg-light/85 text-white hover:bg-light;
+        }
+
+        &-dark {
+            @apply bg-black/85 text-white hover:bg-black;
+        }
+    }
+
+    &-outline {
+        &-primary {
+            @apply border bg-transparent border-primary text-primary hover:bg-primary/10;
+        }
+
+        &-success {
+            @apply border bg-transparent border-success text-success hover:bg-success/10;
+        }
+
+        &-danger {
+            @apply border bg-transparent border-danger text-danger hover:bg-danger/10;
+        }
+
+        &-warning {
+            @apply border bg-transparent border-warning text-warning hover:bg-warning/10;
+        }
+
+        &-info {
+            @apply border bg-transparent border-info text-info hover:bg-info/10;
+        }
+
+        &-light {
+            @apply border bg-transparent border-light text-light hover:bg-light/10;
+        }
+
+        &-dark {
+            @apply border bg-transparent border-black text-black hover:bg-black/10;
+        }
+    }
+
+    &-link {
+        &-primary {
+            @apply text-primary hover:underline;
+        }
+
+        &-success {
+            @apply text-success hover:underline;
+        }
+
+        &-danger {
+            @apply text-danger hover:underline;
+        }
+
+        &-warning {
+            @apply text-warning hover:underline;
+        }
+
+        &-info {
+            @apply text-info hover:underline;
+        }
+
+        &-light {
+            @apply text-light hover:underline;
+        }
+
+        &-dark {
+            @apply text-black hover:underline;
+        }
+    }
+
+    &-ghost {
+        primary {
+            @apply text-primary hover:bg-primary/10;
+        }
+
+        &-success {
+            @apply text-success hover:bg-success/10;
+        }
+
+        &-danger {
+            @apply text-danger hover:bg-danger/10;
+        }
+
+        &-warning {
+            @apply text-warning hover:bg-warning/10;
+        }
+
+        &-info {
+            @apply text-info hover:bg-info/10;
+        }
+
+        &-light {
+            @apply text-light hover:bg-light/10;
+        }
+
+        &-dark {
+            @apply text-black hover:bg-black/10;
+        }
+    }
+}

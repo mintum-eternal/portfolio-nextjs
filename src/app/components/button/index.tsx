@@ -1,9 +1,5 @@
 import { IButtonRoot } from "./types";
-import {
-  renderVariantClass,
-  sizeClass,
-} from "./variables";
-
+import './index.scss'
 function Button({
   children,
   colorScheme = "primary",
@@ -12,21 +8,17 @@ function Button({
   type,
   ...other
 }: IButtonRoot) {
-  const initClass = "rounded duration-500 font-semibold";
 
   return (
     <button
       {...other}
       type={type}
+      onClick={!other.disabled ? other.onClick : undefined}
       className={`${
         other.className
           ? other.className + " "
           : ""
-      }${initClass} ${
-        sizeClass[size]
-      } ${
-        renderVariantClass(colorScheme)[variant]
-      }`}>
+      } button button-${size} button-${variant}-${colorScheme}`}>
       {children}
     </button>
   );
