@@ -22,4 +22,11 @@ export class Helper {
     }
     return result;
   }
+  static jsonParse(string: string) {
+    try {
+      return JSON.parse(string)
+    } catch  {
+      return string
+    }
+  }
 }
