@@ -42,15 +42,19 @@ function useCookies() {
   };
   const getCookies = () => {
     const cookies: Record<string, unknown> = {};
-    document.cookie
-      .split("; ")
-      .forEach((cookie) => {
-        const newObject = cookie.split("=");
-        cookies[newObject[0]] = Helper.jsonParse(
-          newObject[1]
-        );
-      });
-    return cookies;
+    try {
+      document?.cookie
+        .split("; ")
+        .forEach((cookie) => {
+          const newObject = cookie.split("=");
+          cookies[newObject[0]] =
+            Helper.jsonParse(newObject[1]);
+        });
+
+      return cookies;
+    } catch {
+      return cookies;
+    }
   };
   const removeCookies = (
     name: string,

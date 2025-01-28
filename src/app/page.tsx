@@ -1,12 +1,7 @@
 "use client";
 import useCookies from "@/services/cookies";
 import { useEffect } from "react";
-const exampleProfile = {
-  cusName: "Bé Tân",
-  dob: 620413200000,
-  email: "lyminhtan@yopmail.com",
-  expireDate: 1740589200000,
-};
+
 function HomeRoot() {
   const { cookies, removeCookies, setCookie } =
     useCookies();
