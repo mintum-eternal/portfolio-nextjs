@@ -1,4 +1,4 @@
-import LoadingComponent from "../components/loading";
+import LoadingComponent from "@/components/loading";
 
 interface IRootDashboard {
   label?: string;

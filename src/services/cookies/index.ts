@@ -1,6 +1,6 @@
+"use client"
 import { Helper } from "@/utils/Helpers";
 import { useState } from "react";
-
 interface ICookieOptions {
   path?: string;
   expires?: Date;
