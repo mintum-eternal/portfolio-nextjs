@@ -1,20 +1,49 @@
 import {
+  BaseSyntheticEvent,
+  ChangeEvent,
+  createContext,
+  FormEvent,
   ReactNode,
+  SyntheticEvent,
+  useContext,
   useEffect,
   useRef,
+  useState,
 } from "react";
+export interface IFormContext {
+  setValue: (name: string, value: any) => void;
+  getValue: (name?: string) => void;
+}
+const ContextForm = createContext<
+  IFormContext | undefined
+>(undefined);
+export const useFormContext = () =>
+  useContext(ContextForm);
 
 function Form({
   render,
 }: {
-  render: () => ReactNode;
+  render: (value: IFormContext) => ReactNode;
 }) {
+  const [contextValue, setContextValue] =
+    useState({});
+  const [formData, setFormData] = useState<Record<string, unknown>>({})
   const formRef = useRef<HTMLFormElement>(null);
+  const handleSetValue = (name: string, value: unknown) => {
+    const newData = {[name]: value}
+    setFormData(s=>({...s, ...newData}))
+  };
+  const handleOnChange = (e: ChangeEvent<HTMLFormElement>) => {
+    const newData = {[e.target.name]: e.target.value}
+    setFormData(s=>({...s, ...newData}))
+  }
+  const handleGetValue = (name?: string) => {
+    return name ? formData[name] : formData
+  };
   useEffect(() => {
     const formElement = formRef.current?.elements;
     if (formElement) {
-      const formData: Record<string, unknown> =
-        {};
+      const newFormData: Record<string, unknown> = {}
       Array.from({
         length: formElement.length,
       }).forEach((element, idx) => {
@@ -23,23 +52,31 @@ function Form({
           switch (current.tagName) {
             case "INPUT":
             case "TEXTAREA":
+            case "SELECT":
               const input =
                 current as HTMLInputElement;
-              formData[input.name] = input.value;
+              newFormData[input.name] = input.value;
               break;
 
             default:
-              const select =
-                current as HTMLSelectElement;
-              console.log(select.options, select.value);
               break;
           }
         }
       });
-      // console.log("formData", formData);
+      setFormData(newFormData)
     }
   }, []);
-  return <form ref={formRef}>{render()}</form>;
+  const values = {
+        ...contextValue,
+        setValue: handleSetValue,
+        getValue: handleGetValue,
+      }
+  return (
+    <ContextForm.Provider
+      value={values}>
+      <form ref={formRef} onChange={handleOnChange}>{render(values)}</form>
+    </ContextForm.Provider>
+  );
 }
 
 export default Form;

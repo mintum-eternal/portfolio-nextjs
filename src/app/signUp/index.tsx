@@ -1,5 +1,5 @@
 "use client";
-import Form from "@/components/form";
+import Form, { IFormContext } from "@/components/form";
 import { FormEvent } from "react";
 
 function SignUp() {
@@ -12,8 +12,9 @@ function SignUp() {
   return (
     <div className="w-[700px] mx-auto my-5 p-3 bg-light rounded-lg">
       <Form
-        render={() => (
-          <>
+        render={(method: IFormContext) => {
+          console.log('test form', method.getValue('about')); 
+          return <>
             <div className="space-y-12">
               <div className="border-b border-gray-900/10 pb-12">
                 <h2 className="text-base/7 font-semibold text-gray-900">
@@ -488,7 +489,7 @@ function SignUp() {
               </button>
             </div>
           </>
-        )}
+        }}
       />
     </div>
   );
